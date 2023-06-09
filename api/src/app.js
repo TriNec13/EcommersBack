@@ -20,7 +20,7 @@ server.use(morgan('dev'));
 
 // Configurar opciones de CORS
 const corsOptions = {
-  origin: 'https://ecommers-front-rust.vercel.app/', // Reemplaza con el origen exacto de tu aplicación
+  origin: 'https://ecommers-front-rust.vercel.app', // Reemplaza con el origen exacto de tu aplicación
   credentials: true,
   methods: 'GET, POST, OPTIONS, PUT, DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
