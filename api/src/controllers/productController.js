@@ -81,33 +81,30 @@ const getProducts = async (
     order: orderClause,
     limit: pageSize,
     offset: offset,
+    distinct:true,
     include: [
       {
         model: Category,
-        attributes: ["name"],
+        attributes: ["id","name", "deleted"],
         through: { attributes: [] },
-        where: categories
-          ? { name: { [Op.iLike]: `%${categories}%` } }
-          : {},
+        where: categories ? { name: { [Op.iLike]: `%${categories}%` } } : {},
       },
       {
         model: Platform,
-        attributes: ["name"],
+        attributes: ["id","name"],
         through: { attributes: [] },
-        where: platform
-          ? { name: { [Op.iLike]: `%${platform}%` } }
-          : {},
+        where: platform ? { name: { [Op.iLike]: `%${platform}%` } } : {},
       },
       {
         model: License,
-        attributes: ["name"],
+        attributes: ["id","name"],
         through: { attributes: [] },
-        where: license
-          ? { name: { [Op.iLike]: `%${license}%` } }
-          : {},
+        where: license ? { name: { [Op.iLike]: `%${license}%` } } : {},
       },
     ],
   });
+
+  console.log(responseProducts.count)
 
   if (!responseProducts.rows.length) {
     throw new Error(`There are no products with the given data`);
@@ -138,7 +135,28 @@ const createProduct = async (
 };
 
 const getProductDetail = async (id) => {
-  const productDetail = await Product.findByPk(id);
+  const productDetail = await Product.findByPk(id, {
+    include: [
+      {
+        model: Category,
+        through: {
+          attributes: [],
+        },
+      },
+      {
+        model: Platform,
+        through: {
+          attributes: [],
+        },
+      },
+      {
+        model: License,
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
 
   console.log(productDetail);
 
