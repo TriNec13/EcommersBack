@@ -35,7 +35,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-const { Product, Category, Platform, License, Wishlist, User } = sequelize.models;
+const { Product, Category, Platform, License, Carrito, Wishlist, User } = sequelize.models;
 
 Product.belongsToMany(Category, { through: "products_categories" });
 Category.belongsToMany(Product, { through: "products_categories" });
@@ -44,7 +44,8 @@ Platform.belongsToMany(Product, { through: "products_platforms" });
 Product.belongsToMany(License, { through: "products_licenses" });
 License.belongsToMany(Product, { through: "products_licenses" });
 
-
+User.hasMany(Carrito) //debe crear un campo "User_ID" en tabla Carrito
+Carrito.belongsTo(User)
 User.hasOne(Wishlist);
 Wishlist.belongsTo(User);
 Wishlist.belongsToMany(Product, { through: 'WishlistProduct' });

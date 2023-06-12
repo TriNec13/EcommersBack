@@ -8,14 +8,14 @@ const {
   deleteProduct,
 } = require("../controllers/productController.js");
 
-const { validationGetProducts } = require("../utils/validations.js");
-const { requireAuth } = require("../utils/index.js");
+// const { validationGetProducts } = require("../utils/validations.js");
+// const { requireAuth } = require("../utils/index.js");
 
 const productsRouter = Router();
 
 productsRouter.get(
   "/",
-  validationGetProducts,
+  // validationGetProducts,
   async (req, res) => {
     try {
       const showProducts = await getProducts(

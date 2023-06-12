@@ -60,7 +60,7 @@ server.use(passport.initialize());
 
 // Configurar opciones de CORS
 const corsOptions = {
-  origin: 'https://ecommers-front-rust.vercel.app', // Reemplaza con el origen exacto de tu aplicación
+  origin: 'https://ecommersback-production.up.railway.app', // Replace with the exact origin of your application
   credentials: true,
   methods: 'GET, POST, OPTIONS, PUT, DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
@@ -78,4 +78,3 @@ server.use((err, req, res, next) => {
 });
 
 module.exports = server;
-
