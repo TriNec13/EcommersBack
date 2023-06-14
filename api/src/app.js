@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3001/auth/google/callback",
+      callbackURL: "https://ecommersback-production.up.railway.app/auth/google/callback",
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
@@ -38,7 +38,7 @@ passport.use(
         });
         done(null, user);
       } catch (error) {
-        const redirectUrl = "http://localhost:3000/login"; 
+        const redirectUrl = "https://ecommersback-production.up.railway.app/login"; 
         done(false, false, { message: "Authentication failed", redirectUrl });
       }
     }
@@ -63,7 +63,7 @@ server.use(passport.initialize());
 
 // Configurar opciones de CORS
 const corsOptions = {
-  origin: "http://localhost:3000", // Replace with the exact origin of your application
+  origin: "https://ecommersback-production.up.railway.app", // Replace with the exact origin of your application
   credentials: true,
   methods: "GET, POST, OPTIONS, PUT, DELETE",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
