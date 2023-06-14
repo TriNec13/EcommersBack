@@ -38,7 +38,7 @@ passport.use(
         });
         done(null, user);
       } catch (error) {
-        const redirectUrl = "https://ecommersback-production.up.railway.app/login"; 
+        const redirectUrl = "https://ecommers-front-rust.vercel.app/login"; 
         done(false, false, { message: "Authentication failed", redirectUrl });
       }
     }
@@ -63,7 +63,7 @@ server.use(passport.initialize());
 
 // Configurar opciones de CORS
 const corsOptions = {
-  origin: "https://ecommersback-production.up.railway.app/", // Replace with the exact origin of your application
+  origin: "https://ecommers-front-rust.vercel.app", // Replace with the exact origin of your application
   credentials: true,
   methods: "GET, POST, OPTIONS, PUT, DELETE",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
