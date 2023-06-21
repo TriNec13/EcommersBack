@@ -101,24 +101,24 @@ const seedReviews = async () => {
         },
       });
 
+      const existingReview = await Review.findOne({
+        where: {
+          userId: user.id,
+          productId: product.id,
+        },
+      });
+
+      if (existingReview) {
+        continue;
+      }
+
+      const review = await Review.create({
+        name: reviewData.name,
+        description: reviewData.description,
+        rating: reviewData.rating,
+      });
+
       if (user && product) {
-        const existingReview = await Review.findOne({
-          where: {
-            userId: user.id,
-            productId: product.id,
-          },
-        });
-
-        if (existingReview) {
-          continue;
-        }
-
-        const review = await Review.create({
-          name: reviewData.name,
-          description: reviewData.description,
-          rating: reviewData.rating,
-        });
-
         await user.addReview(review);
         await product.addReview(review);
       }
