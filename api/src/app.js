@@ -38,7 +38,7 @@ passport.use(
         });
         done(null, user);
       } catch (error) {
-        const redirectUrl = "https://ecommers-front-rust.vercel.app/login";
+        const redirectUrl = "https://ecommers-front-rust.vercel.app/login"; 
         done(false, false, { message: "Authentication failed", redirectUrl });
       }
     }

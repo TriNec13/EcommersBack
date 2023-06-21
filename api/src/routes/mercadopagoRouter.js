@@ -2,18 +2,18 @@ const { Router } = require("express");
 const mercadopago = require("mercadopago");
 const router = Router();
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
-
+url="http://localhost:3000";
 mercadopago.configure({ access_token: process.env.MERCADOPAGO_KEY });
 
 router.post("/", (req, res) => {
   const prod = req.body;
   let preference = {
     items: [],
+
     back_urls: {
-      success: `https://ecommers-front-rust.vercel.app/home`,
-      failure: "https://ecommers-front-rust.vercel.app/home",
-      pending: "https://ecommers-front-rust.vercel.app/home",
+      success: `${url}/feedback`,
+      failure: `${url}/home`,
+      pending: `${url}/home`,
     },
     auto_return: "approved",
     binary_mode: true,
@@ -39,27 +39,28 @@ router.post("/", (req, res) => {
     });
   }
 
-  mercadopago.preferences
-    .create(preference)
-    .then((response) => {
-      if (response.body.init_point) {
-        res.json({
-          init_point: response.body.init_point,
-        });
-      } else {
-        res.status(400).send({ error: 'No init_point found in the response' });
-      }
-    })
-    .catch((error) => res.status(400).send({ error: error }));
+  var respuestaMercadopago = mercadopago.preferences
+
+  .create(preference)
+  .then((response) => {
+    if (response.body.init_point) {
+      res.json({
+        init_point: response.body.init_point
+      });
+    } else {
+      res.status(400).send({ error: 'No init_point found in the response' });
+    }
+  })
+  .catch((error) => res.status(400).send({ error: error }));
+
+
 });
 
 router.get("/feedback", function (req, res) {
-  const { payment_id, status, merchant_order_id } = req.query;
-
   res.json({
-    Payment: payment_id,
-    Status: status,
-    MerchantOrder: merchant_order_id,
+    Payment: req.query.payment_id,
+    Status: req.query.status,
+    MerchantOrder: req.query.merchant_order_id,
   });
 });
 
