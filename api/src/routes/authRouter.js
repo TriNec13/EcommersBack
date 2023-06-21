@@ -48,9 +48,6 @@ authRouter.post("/login", async (req, res) => {
     res.cookie("login", token, {
       httpOnly: true,
       maxAge: 1000 * 3 * 24 * 60 * 60,
-      sameSite: "None",
-      secure: true,
-      domain: ".vercel.app"
     });
 
     res.status(201).json(`User ${newLogIn.email} logged in succesfully`);
