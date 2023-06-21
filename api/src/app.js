@@ -61,13 +61,36 @@ server.use(
 // Initialize Passport
 server.use(passport.initialize());
 
-// Configurar opciones de CORS
-const corsOptions = {
-  origin: "https://ecommers-front-rust.vercel.app", // Replace with the exact origin of your application
+
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://ecommers-front-rust.vercel.app'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Expose-Headers','Set-Cookie');
+  next();
+});
+
+server.use(cors({
+  origin: "https://ecommers-front-rust.vercel.app",
   credentials: true,
-  methods: "GET, POST, OPTIONS, PUT, DELETE",
-  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
-};
+  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+  allowedHeaders: [
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "authorization",
+  ],
+}));
+
+// Configurar opciones de CORS
+// const corsOptions = {
+//   origin: "https://ecommers-front-rust.vercel.app", // Replace with the exact origin of your application
+//   credentials: true,
+//   methods: "GET, POST, OPTIONS, PUT, DELETE",
+//   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
+// };
 
 server.use(cors(corsOptions));
 
@@ -81,3 +104,5 @@ server.use((err, req, res, next) => {
 });
 
 module.exports = server;
+
+
