@@ -50,6 +50,7 @@ authRouter.post("/login", async (req, res) => {
       maxAge: 1000 * 3 * 24 * 60 * 60,
       sameSite: "None",
       secure: true,
+      domain: ".vercel.app"
     });
 
     res.status(201).json(`User ${newLogIn.email} logged in succesfully`);
