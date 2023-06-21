@@ -1,5 +1,8 @@
+
+const nodemailer = require('nodemailer');
 const { User } = require("../db");
 const jwt = require("jsonwebtoken");
+
 
 async function getUserByName(name) {
   const user = await User.findAll({ where: { name } });
@@ -8,34 +11,6 @@ async function getUserByName(name) {
 
 async function getAllUsers() {
   let users = await User.findAll();
-
-  if (users.length === 0) {
-    await User.bulkCreate([
-      {
-        name: "Iñaki",
-        last_name: "Galindez",
-        user_name: "mrmandarina",
-        image: "imagen1.jpg",
-        email: "iakigalindez@gmail.com",
-        password: "contraseña1",
-        admin: true,
-        createdInBd: true,
-      },
-      {
-        name: "Jorge",
-        last_name: "Vega",
-        user_name: "jVega",
-        image: "imagen2.jpg",
-        email: "jvega@example.com",
-        password: "contraseña2",
-        admin: false,
-        createdInBd: true,
-      },
-    ]);
-
-    users = await User.findAll();
-  }
-
   return users;
 }
 
@@ -99,8 +74,9 @@ async function deleteUser(id) {
   if (!user) {
     throw new Error("Usuario no encontrado");
   }
-
-  user.disabled = true;
+  if (user.disabled = true) {user.disabled = false}
+  else {user.disabled = true;}
+  
   await user.save();
 }
 
