@@ -92,7 +92,7 @@ server.use(cors({
 //   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
 // };
 
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 
 server.use(mainRouter);
 
