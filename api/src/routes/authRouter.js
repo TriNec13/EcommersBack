@@ -115,9 +115,9 @@ authRouter.post("/verification", async (req, res) => {
   }
 });
 
-authRouter.get("/user", async (req, res) => {
-  const token = req.cookies.login;
-
+authRouter.post("/user", async (req, res) => {
+  const {token} = req.body;
+  console.log("esto es token: ",token);
   try {
     if (token) {
       jwt.verify(
