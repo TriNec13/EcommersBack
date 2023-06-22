@@ -52,7 +52,7 @@ authRouter.post("/login", async (req, res) => {
     //   secure: true,
     //   domain: ".vercel.app"
     // });
-
+    console.log("esto es token: ",token)
     res.status(201).json(`User ${newLogIn.email} logged in succesfully`, token);
   } catch (error) {
     res.status(400).json(`Failed to log in the user: ${error.message}`);
