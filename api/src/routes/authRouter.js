@@ -45,15 +45,15 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { newLogIn, token } = await postLogIn(email, password);
 
-    res.cookie("login", token, {
-      httpOnly: true,
-      maxAge: 1000 * 3 * 24 * 60 * 60,
-      sameSite: "None",
-      secure: true,
-      domain: ".vercel.app"
-    });
+    // res.cookie("login", token, {
+    //   httpOnly: true,
+    //   maxAge: 1000 * 3 * 24 * 60 * 60,
+    //   sameSite: "None",
+    //   secure: true,
+    //   domain: ".vercel.app"
+    // });
 
-    res.status(201).json(`User ${newLogIn.email} logged in succesfully`);
+    res.status(201).json(`User ${newLogIn.email} logged in succesfully`, token);
   } catch (error) {
     res.status(400).json(`Failed to log in the user: ${error.message}`);
   }
