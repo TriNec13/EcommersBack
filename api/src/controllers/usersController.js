@@ -37,6 +37,7 @@ async function updateUser(req, res) {
       phone,
       admin,
       disabled,
+      is_verified,
     } = req.body;
 
     const user = await User.findByPk(id);
@@ -54,6 +55,7 @@ async function updateUser(req, res) {
     user.phone = phone;
     user.admin = admin;
     user.disabled = disabled;
+    user.is_verified = is_verified;
 
     await user.save();
 
