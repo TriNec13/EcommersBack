@@ -140,4 +140,30 @@ authRouter.post("/user", async (req, res) => {
   }
 });
 
+authRouter.put("/user", async (req, res) => {
+  const { token, email, oldPassword, newPassword } = req.body;
+
+  if (token && email && oldPassword && newPassword) {
+    try {
+      const decodedToken = jwt.verify(token, "shnawg is not paying the bills");
+
+      const user = await getUserByToken(decodedToken);
+
+      if (user.email.toLowerCase() !== email.toLowerCase()) {
+        return res.status(400).json({ error: "Invalid email" });
+      }
+
+      await User.changePassword(email, oldPassword, newPassword);
+
+      res.status(200).json({ message: "Password reset successful" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  } else {
+    res.status(400).json({
+      error: "Token, email, oldPassword, and newPassword are required",
+    });
+  }
+});
+
 module.exports = authRouter;

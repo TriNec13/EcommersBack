@@ -212,5 +212,29 @@ module.exports = (sequelize) => {
     await user.save();
   };
 
+  User.changePassword = async (email, oldPassword, newPassword) => {
+    const user = await User.findOne({
+      where: {
+        email: email.toLowerCase(),
+      },
+    });
+
+    if (!user) {
+      throw new Error("Invalid user");
+    }
+
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid password");
+    }
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = newHashedPassword;
+
+    await user.save();
+  };
+
   return User;
 };
