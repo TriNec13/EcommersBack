@@ -84,7 +84,7 @@ authRouter.get(
 authRouter.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/login",
+    failureRedirect: "https://ecommers-front-rust.vercel.app/login",
     session: false,
   }),
   async (req, res) => {
@@ -94,7 +94,7 @@ authRouter.get(
         httpOnly: true,
         maxAge: 1000 * 3 * 24 * 60 * 60,
       });
-      const redirectUrl = "http://localhost:3000/home";
+      const redirectUrl = "https://ecommers-front-rust.vercel.app/home";
       res.redirect(redirectUrl);
     } catch (error) {
       return res.status(500).json({ error: "Authentication failed" });
