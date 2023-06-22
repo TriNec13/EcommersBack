@@ -9,6 +9,7 @@ const { Strategy: GoogleStrategy } = require("passport-google-oauth2");
 const { User } = require("./db");
 const session = require("express-session");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const nodemailerRouter = require("./routes/index.js");
 
 require("./db.js");
 
@@ -44,7 +45,7 @@ passport.use(
     }
   )
 );
-
+server.use("/nodemailer", nodemailerRouter);
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());

@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { User } = require("../db");
 const {
   getSignUp,
   getLogIn,
