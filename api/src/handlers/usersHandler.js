@@ -56,7 +56,7 @@ async function createUser(req, res) {
   }
 }
 
-async function UserHandler(req, res) {
+async function updateUserHandler(req, res) {
   try {
     await usersController.updateUser(req, res);
   } catch (error) {
