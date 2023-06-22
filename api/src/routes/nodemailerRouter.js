@@ -30,7 +30,8 @@ nodemailerRouter.post("/envio-confirmacion", async (req, res) => {
 
     await user.update({ confirmationToken, confirmed: false });
 
-    const confirmationLink = `https://ecommers-front-rust.vercel.app/nodemailer/confirm/${confirmationToken}`;
+    // const confirmationLink = `https://ecommers-front-rust.vercel.app/nodemailer/confirm/${confirmationToken}`;
+    const confirmationLink = `https://ecommers-front-rust.vercel.app/home`;
 
     const transporter = nodemailer.createTransport({
       host: "smtp-mail.outlook.com",
@@ -49,8 +50,25 @@ nodemailerRouter.post("/envio-confirmacion", async (req, res) => {
     const mailOptions = {
       from: process.env.OUTLOOK_USERNAME,
       to: email,
-      subject: "Confirmación de registro",
-      text: `Por favor, haz clic en el siguiente enlace para confirmar tu registro: ${confirmationLink}`,
+      // subject: "Confirmación de registro",
+      subject: "CodeXpress",
+      text: `¡Gracias por registrarte exitosamente en nuestra página web de ventas de software! Nos complace darte la bienvenida a nuestra comunidad y queremos asegurarnos de que aproveches al máximo todas las ventajas que ofrecemos.
+      En CodeXpress, nos enorgullece proporcionar soluciones de software innovadoras y de alta calidad para satisfacer las necesidades de nuestros clientes. Con nuestra amplia selección de productos y servicios, estamos seguros de que encontrarás las herramientas adecuadas para mejorar tu trabajo y optimizar tus procesos.
+      A partir de ahora, tendrás acceso a una variedad de características y beneficios exclusivos, que incluyen:
+      
+      1. Amplia gama de software: Explora nuestra extensa colección de software para diferentes propósitos y sectores. Desde aplicaciones de productividad hasta herramientas de diseño y desarrollo, ¡tenemos todo cubierto!
+      
+      2. Actualizaciones regulares: Mantenemos nuestros productos actualizados para garantizar un rendimiento óptimo y una experiencia de usuario satisfactoria. Te notificaremos sobre las actualizaciones más recientes y las nuevas versiones disponibles para que siempre estés al día.
+      
+      3. Ofertas exclusivas: Como miembro registrado, tendrás acceso a ofertas y descuentos especiales en nuestros productos seleccionados. Estate atento a nuestras promociones y oportunidades únicas para ahorrar dinero en tus compras.
+      
+      Para comenzar a explorar nuestra página web y aprovechar todas estas ventajas, simplemente haz clic en el siguiente enlace: ${confirmationLink}.
+      Si tienes alguna pregunta adicional o necesitas ayuda durante tu experiencia en nuestra página web, no dudes en contactarnos. Estamos aquí para brindarte el mejor servicio posible.
+      Una vez más, te damos la bienvenida a CodeXpress. Esperamos que disfrutes de tu tiempo con nosotros y encuentres los productos de software que cumplirán todas tus expectativas.
+      
+      Atentamente,
+      
+      Equipo de trabajo de CodeXpress : ${confirmationLink}`,
     };
 
     await transporter.sendMail(mailOptions);
